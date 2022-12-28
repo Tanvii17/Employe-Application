@@ -3,4 +3,3 @@ com\employeeApplication\EmployeeApplication.class
 com\employeeApplication\repository\EmployeeRepository.class
 com\employeeApplication\controller\EmployeeController.class
 com\employeeApplication\service\EmployeeService.class
-com\employeeApplication\model\Employee.class
