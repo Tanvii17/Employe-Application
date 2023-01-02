@@ -13,8 +13,7 @@ public class LogController {
 
     @RequestMapping("/log")
     public String log(){
-        logger.trace("Log Level : TRACE");
-        logger.info("Log Level : INFO");
+
         logger.debug("Log Level : DEBUG");
         logger.debug("Log Level : ERROR");
         logger.debug("Log Level : WARN");

@@ -2,7 +2,10 @@ package com.employeeApplication.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,8 @@ import com.employeeApplication.service.EmployeeService;
 @Controller
 public class EmployeeController {
 
+	Logger logger = LoggerFactory.getLogger(LogController.class);
+
 	@Autowired
 	private EmployeeService employeeService;
 	private Employee employee;
@@ -27,23 +32,30 @@ public class EmployeeController {
 	public String viewHomePage(Model model) {
 
 		return findPaginated(1,  model);
+
 	}
-	
+
+	// to add new record
 	@GetMapping("/newEmployeeForm")
 	public String showNewEmployeeForm(Model model) {
 		// create Entity attribute to bind form data
 		Employee employee = new Employee();
 		model.addAttribute("employee", employee);
+		logger.info("Employee form opened");
 		return "new_employee";
 	}
-	
+
+	// to save data
 	@PostMapping("/employee")
 	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
 		// save employee to database
 		employeeService.saveEmployee(employee);
+		logger.info("Employee details saved");
 		return "redirect:/";
 	}
-	
+
+
+	// To update details
 	@GetMapping("/updateEmployee/{id}")
 	public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
 		
@@ -52,18 +64,23 @@ public class EmployeeController {
 		
 		// set employee as an Entity attribute to pre-populate the form
 		model.addAttribute("employee", employee);
+		logger.info("Employee details updated");
 		return "update_employee";
 	}
-	
+
+
+	// To delete record
 	@GetMapping("/deleteEmployee/{id}")
 	public String deleteEmployee(@PathVariable (value = "id") long id) {
 		
 		// call delete employee method 
 		this.employeeService.deleteEmployeeById(id);
+		logger.info("Employee details deleted");
 		return "redirect:/";
 	}
 	
-	
+
+	// pagination
 	@GetMapping("/page/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Model model) {
 		int pageSize = 5;
@@ -74,9 +91,6 @@ public class EmployeeController {
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-
-
-
 		model.addAttribute("listEmployees", listEmployees);
 		return "index";
 	}

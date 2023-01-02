@@ -1,64 +1,5 @@
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
 
-body{
-  font-family: Verdana, sans-serif;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 80%;
-  border: 2px solid #000000;
-}
-
-th {
-  text-align: left;
-  padding: 8px;
-  background-color:#BFEAF5;
-  color:#000000;
-}
-
-td {
-  text-align: left;
-  padding: 8px;
-}
-
-<!--tr:nth-child(even){-->
-<!--background-color: #BFEAF5;-->
-
-<!--}-->
-
- .btn {
-
-    width: 100%;
-    color: #ffffff;
-    padding: 4px 10px;
-    font-size: 18px;
-    font-weight: 300;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.btn-color1{
-background-color:#5d9ff0;
-}
-
-.btn-color2{
-background-color:#f72f20;
-}
-
-.a-link{
-    width: 100%;
-    color: #000000;
-    padding: 5px 10px;
-    font-size: 16px;
-    font-weight:300;
-    border-radius: 5px;
-}
-     *,
+      *,
 *:before,
 *:after{
     padding: 0;
@@ -66,7 +7,9 @@ background-color:#f72f20;
     box-sizing: border-box;
 }
 body{
-
+  padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     background-color: #ffffff;
     font-family: Verdana, sans-serif;
 
@@ -134,7 +77,7 @@ button{
     cursor: pointer;
 }
 
- a{
+      a{
          text-align: center;
     margin-top: 10px;
     width: 100%;
@@ -144,12 +87,3 @@ button{
     font-weight: 300;
 }
 
-
-
-.heading{
-
-    color: #000000;
-    font-size: 24px;
-    font-weight:600;
-
-}
