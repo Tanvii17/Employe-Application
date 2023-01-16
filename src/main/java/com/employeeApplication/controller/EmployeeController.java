@@ -26,7 +26,7 @@ public class EmployeeController {
 
 
 	// display list of employees
-	@GetMapping({"/", "/search"})
+	@GetMapping("/")
 	public String viewHomePage(Employee employee, Model model,@Param("keyword") String keyword) {
 
 
