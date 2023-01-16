@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1">
-<title>Employee Application</title>
-<link rel="stylesheet" href="./style.css">
 
-	<style media="screen">
       *,
 *:before,
 *:after{
@@ -93,37 +86,4 @@ button{
     font-size: 14px;
     font-weight: 300;
 }
-</style>
 
-
-
-</head>
-<body>
-
-	<div>
-
-
-		<form action="#" th:action="@{/employee}" th:object="${employee}" method="POST">
-			<h3>Employee Application</h3>
-			<hr>
-
-			<input type="hidden" th:field="*{id}" />
-            <label>Employee Name</label>
-			<input type="text" th:field="*{employeeName}" class="form-control mb-4 col-4">
-			<label>Employee Designation</label>
-			<input type="text" th:field="*{employeeDesignation}" class="form-control mb-4 col-4">
-			<label>Employee Salary</label>
-			<input type="number" th:field="*{emloyeeSalary}" class="form-control mb-4 col-4">
-
-				<button type="submit" > Update Employee</button>
-				<a th:href = "@{/}"> Back to Employee List</a>
-		</form>
-
-		<hr>
-
-
-	</div>
-
-
-</body>
-</html>
