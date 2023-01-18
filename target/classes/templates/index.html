@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="ISO-8859-1">
 <title>Employee Application</title>
@@ -50,16 +50,25 @@ td {
 }
 .btn-color1{
 background-color:#5d9ff0;
+box-shadow: 0 0 20px rgba(8,7,16,0.20);
 }
 
 .btn-color2{
 background-color:#f72f20;
 color: #ffffff;
+box-shadow: 0 0 20px rgba(8,7,16,0.20);
 }
 
 .btn-color3{
 background-color:#698474;
 color: #ffffff;
+box-shadow: 0 0 20px rgba(8,7,16,0.20);
+}
+
+.btn-color4{
+background-color:#F2F6F5;
+color: #142850;
+box-shadow: 0 0 20px rgba(8,7,16,0.20);
 }
 
 .a-link{
@@ -82,6 +91,54 @@ color: #ffffff;
      display:inline;
 
 }
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav div {
+
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+
+}
+
+<!--.topnav a {-->
+<!--  float:right;-->
+<!--  color: #f2f2f2;-->
+<!--  text-align: center;-->
+<!--  text-decoration: none;-->
+<!--  font-size: 17px;-->
+<!--}-->
+
+
+.topnav form {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+  padding: 14px 16px;
+  width: 50%;
+  margin-right:-20%;
+  cursor: pointer;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
 input{
     display: inline;
     height: 30px;
@@ -97,29 +154,34 @@ input{
 
 <body class="center">
 
+<div class="topnav">
+
+
+
+	<div sec:authorize="isAuthenticated()">
+		Welcome <b><span sec:authentication="name">Username</span></b>
+		&nbsp;
+		<i><span sec:authentication="principal.authorities">Roles</span></i>
+	</div>
+
+
+
+
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
+
+</div>
 
 
 <div>
+
+
 	<h1 class="heading">Employee List</h1>
-	<a class="a-link" th:href = "@{/newEmployeeForm}"> Add Employee </a>
-		<br>
-		<br>
-
-
-
-
-	<form class="form-class" th:action="@{/search}" method="get">
-		Filter: <input class="form-class" type="text" name="keyword" id="keyword" size="50" th:value="${keyword}"
-					   required/>
-		&nbsp;
-	</form>
-	<form class="form-class" th:action="@{/search}" method="get"><a class="btn btn-color3" type="submit" value="Search"
-																	id="btnSearch" onkeyup="search()">Search</a>
-		&nbsp;
-		<a class="btn btn-color2" type="button" value="Clear" id="btnClear" onclick="clearSearch()">Clear</a>
-	</form>
-
-
+	<br>
+	<a class="btn btn-color4" th:href = "@{/newEmployeeForm}"> Add Employee </a>
+	<br>
+	<br>
     <br>
 	<br>
 
@@ -132,7 +194,7 @@ input{
 						Employee Designation</a></th>
 					<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=emloyeeSalary&sortDir=' + ${reverseSortDir}}">
 						Employee Salary</a></th>
-					<th> Actions </th>
+					<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')"> Actions </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -140,9 +202,10 @@ input{
 					<td th:text="${employee.employeeName}"></td>
 					<td th:text="${employee.employeeDesignation}"></td>
 					<td th:text="${employee.emloyeeSalary}"></td>
-					<td>
+					<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
 						<a class="btn btn-color1" th:href="@{/updateEmployee/{id}(id=${employee.id})}" >Update</a>
-					    <a onclick="return checkdelete()" class="btn btn-color2" th:href="@{/deleteEmployee/{id}(id=${employee.id})}" >Delete</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					    <a sec:authorize="hasAuthority('ADMIN')" onclick="return checkdelete()" class="btn btn-color2" th:href="@{/deleteEmployee/{id}(id=${employee.id})}" >Delete</a>
 					</td>
 				</tr>
 			</tbody>
@@ -154,21 +217,21 @@ input{
         <br>
 		
 		<div th:if = "${totalPages > 1}">
-
+			    <br>
 				<div class="a-link">
 					Total Rows: [[${totalItems}]]
 				</div>
 
 				<div class="a-link">
 					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a class="a-link" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<a class="a-link btn btn-color4" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
 						<span class="a-link" th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
 					</span>&nbsp;
 
-						<a class="a-link" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+						<a class="a-link btn btn-color4" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
 						<span th:unless="${currentPage < totalPages}">Next</span>
 
-						<a class="a-link" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+						<a class="a-link btn btn-color4" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
 						<span th:unless="${currentPage < totalPages}">Last</span>
 				</div>
 
