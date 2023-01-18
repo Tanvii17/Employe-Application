@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="ISO-8859-1">
-<title>Employee Application</title>
-<!--<link rel="stylesheet" href="./index.css">-->
-<!--	-->
-	<style>
+    <meta charset="ISO-8859-1">
+    <title>Employee Application</title>
+    <!--<link rel="stylesheet" href="./index.css">-->
+    <!--	-->
+    <style>
 
 
 		*,
@@ -149,7 +149,10 @@ input{
     font-size: 14px;
     font-weight: 300;
 }
-	</style>
+
+
+
+    </style>
 </head>
 
 <body class="center">
@@ -157,19 +160,16 @@ input{
 <div class="topnav">
 
 
-
-	<div sec:authorize="isAuthenticated()">
-		Welcome <b><span sec:authentication="name">Username</span></b>
-		&nbsp;
-		<i><span sec:authentication="principal.authorities">Roles</span></i>
-	</div>
-
+    <div sec:authorize="isAuthenticated()">
+        Welcome <b><span sec:authentication="name">Username</span></b>
+        &nbsp;
+        <i><span sec:authentication="principal.authorities">Roles</span></i>
+    </div>
 
 
-
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Logout" />
-	</form>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
 
 </div>
 
@@ -177,69 +177,74 @@ input{
 <div>
 
 
-	<h1 class="heading">Employee List</h1>
-	<br>
-	<a class="btn btn-color4" th:href = "@{/newEmployeeForm}"> Add Employee </a>
-	<br>
-	<br>
+    <h1 class="heading">Employee List</h1>
     <br>
-	<br>
+    <a class="btn btn-color4" th:href="@{/newEmployeeForm}"> Add Employee </a>
+    <br>
+    <br>
+    <br>
+    <br>
 
-		<table border="1" >
-			<thead>
-				<tr>
-					<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=employeeName&sortDir=' + ${reverseSortDir}}">
-						Employee Name</a></th>
-					<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=employeeDesignation&sortDir=' + ${reverseSortDir}}">
-						Employee Designation</a></th>
-					<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=emloyeeSalary&sortDir=' + ${reverseSortDir}}">
-						Employee Salary</a></th>
-					<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')"> Actions </th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="employee : ${listEmployees}">
-					<td th:text="${employee.employeeName}"></td>
-					<td th:text="${employee.employeeDesignation}"></td>
-					<td th:text="${employee.emloyeeSalary}"></td>
-					<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-						<a class="btn btn-color1" th:href="@{/updateEmployee/{id}(id=${employee.id})}" >Update</a>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					    <a sec:authorize="hasAuthority('ADMIN')" onclick="return checkdelete()" class="btn btn-color2" th:href="@{/deleteEmployee/{id}(id=${employee.id})}" >Delete</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+    <table border="1">
+        <thead>
+        <tr>
+            <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=employeeName&sortDir=' + ${reverseSortDir}}">
+                Employee Name</a></th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=employeeDesignation&sortDir=' + ${reverseSortDir}}">
+                    Employee Designation</a></th>
+            <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=emloyeeSalary&sortDir=' + ${reverseSortDir}}">
+                Employee Salary</a></th>
+            <th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')"> Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${listEmployees}">
+            <td th:text="${employee.employeeName}"></td>
+            <td th:text="${employee.employeeDesignation}"></td>
+            <td th:text="${employee.emloyeeSalary}"></td>
+            <td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+                <a class="btn btn-color1" th:href="@{/updateEmployee/{id}(id=${employee.id})}">Update</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a sec:authorize="hasAuthority('ADMIN')" onclick="return checkdelete()" class="btn btn-color2"
+                   th:href="@{/deleteEmployee/{id}(id=${employee.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 
-		</div>
+</div>
 
-        <br>
-		
-		<div th:if = "${totalPages > 1}">
-			    <br>
-				<div class="a-link">
-					Total Rows: [[${totalItems}]]
-				</div>
+<br>
 
-				<div class="a-link">
+<div th:if="${totalPages > 1}">
+    <br>
+    <div class="a-link">
+        Total Rows: [[${totalItems}]]
+    </div>
+
+    <div class="a-link">
 					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a class="a-link btn btn-color4" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<a class="a-link btn btn-color4" th:if="${currentPage != i}"
+                           th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
 						<span class="a-link" th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
 					</span>&nbsp;
 
-						<a class="a-link btn btn-color4" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-						<span th:unless="${currentPage < totalPages}">Next</span>
+        <a class="a-link btn btn-color4" th:if="${currentPage < totalPages}"
+           th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
 
-						<a class="a-link btn btn-color4" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
-						<span th:unless="${currentPage < totalPages}">Last</span>
-				</div>
+        <a class="a-link btn btn-color4" th:if="${currentPage < totalPages}"
+           th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+    </div>
 
 
-        </div>
+</div>
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 		function checkdelete(){
 	        return confirm("Are you sure you want to delete this record?");
 
@@ -250,7 +255,10 @@ input{
             }
 
 
-	</script>
+
+
+
+</script>
 </body>
 
 </html>

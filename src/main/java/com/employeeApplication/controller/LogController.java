@@ -12,7 +12,7 @@ public class LogController {
     Logger logger = LoggerFactory.getLogger(LogController.class);
 
     @RequestMapping("/log")
-    public String log(){
+    public String log() {
 
         logger.debug("Log Level : DEBUG");
         logger.debug("Log Level : ERROR");

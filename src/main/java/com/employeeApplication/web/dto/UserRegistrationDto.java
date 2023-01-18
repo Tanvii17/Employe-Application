@@ -1,7 +1,5 @@
 package com.employeeApplication.web.dto;
 
-import com.employeeApplication.repository.UserRepository;
-
 public class UserRegistrationDto {
 
 
@@ -9,9 +7,10 @@ public class UserRegistrationDto {
     private String email;
     private String password;
 
-    public UserRegistrationDto(){
+    public UserRegistrationDto() {
 
     }
+
     public UserRegistrationDto(String name, String email, String password) {
         this.name = name;
         this.email = email;
