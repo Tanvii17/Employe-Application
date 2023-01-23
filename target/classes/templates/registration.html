@@ -5,10 +5,10 @@
 
     <title>Registration Form</title>
 
-    <link rel="stylesheet"
+    <link crossorigin="anonymous"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
+          rel="stylesheet">
 
     <style media="screen">
 
@@ -124,7 +124,9 @@ button{
 
 
 
-</style>
+
+
+    </style>
 
 </head>
 <body>
@@ -156,20 +158,20 @@ button{
 <br>
 <br>
 <br>
-<form th:action="@{/registration}" method="post" th:object="${user}">
+<form method="post" th:action="@{/registration}" th:object="${user}">
     <h3> User Registration Page </h3>
     <hr>
 
 
     <label> Name </label>
-    <input type="text" id="name" th:field="*{name}" autofocus="autofocus" required/>
+    <input autofocus="autofocus" id="name" required th:field="*{name}" type="text"/>
 
     <label> Email Id </label>
-    <input  type="email" id="email" th:field="*{email}" autofocus="autofocus" required/>
+    <input autofocus="autofocus" id="email" required th:field="*{email}" type="email"/>
 
 
     <label>Password</label>
-    <input  type="password" id="password" th:field="*{password}" autofocus="autofocus"  required/>
+    <input autofocus="autofocus" id="password" required th:field="*{password}" type="password"/>
 
     <br>
 

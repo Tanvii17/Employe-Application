@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +23,30 @@ public class EmployeeController {
     private EmployeeService employeeService;
     private Employee employee;
 
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
-    // display list of employees
+
+    // to display list of employees
     @GetMapping("/")
     public String viewHomePage(Employee employee, Model model, @Param("keyword") String keyword) {
 
-
         return findPaginated(1, "employeeName", "asc", model);
-
     }
+
+
+    @RequestMapping(path = {"/","/search"})
+    public String home(Employee employee, Model model, String keyword) {
+        if(keyword!=null) {
+            List<Employee> list = employeeService.getByKeyword(keyword);
+            model.addAttribute("listEmployees",list);
+        }else {
+            List<Employee> list = employeeService.getAllEmployees();
+            model.addAttribute("listEmployees", list);}
+        return "index";
+    }
+
 
     // to add new record
     @GetMapping("/newEmployeeForm")

@@ -5,6 +5,9 @@
     <title>Employee Application</title>
     <!--<link rel="stylesheet" href="./index.css">-->
     <!--	-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+
     <style>
 
 
@@ -16,6 +19,7 @@
 
 body{
   font-family: Verdana, sans-serif;
+  overflow-x:hidden;
 }
 
 table {
@@ -27,22 +31,22 @@ table {
 
 th {
   text-align: left;
-  padding: 8px;
+  padding: 15px 8px;
   background-color:#BFEAF5;
   color:#000000;
 }
 
 td {
   text-align: left;
-  padding: 8px;
+  padding: 13px 8px;
 }
 
 
  .btn {
 
-    width: 100%;
+    width: 7%;
     color: #ffffff;
-    padding: 4px 10px;
+    padding: 6px 12px;
     font-size: 18px;
     font-weight: 300;
     border-radius: 5px;
@@ -60,7 +64,7 @@ box-shadow: 0 0 20px rgba(8,7,16,0.20);
 }
 
 .btn-color3{
-background-color:#698474;
+background-color:#03C988;
 color: #ffffff;
 box-shadow: 0 0 20px rgba(8,7,16,0.20);
 }
@@ -157,6 +161,7 @@ input{
 
 <body class="center">
 
+
 <div class="topnav">
 
 
@@ -173,12 +178,20 @@ input{
 
 </div>
 
-
 <div>
 
 
     <h1 class="heading">Employee List</h1>
     <br>
+    <div>
+        <form th:action="@{/search}" method="get">
+            <input type="text" name="keyword" th:value="${keyword}"  placeholder="Find by Employee Name & Designation"  >
+            <button class="btn btn-color3" type="submit">Search</button>
+            <button class="btn btn-color2" type="submit">Reset</button>
+        </form>
+    </div>
+    <br>
+    &nbsp;
     <a class="btn btn-color4" th:href="@{/newEmployeeForm}"> Add Employee </a>
     <br>
     <br>
@@ -199,13 +212,16 @@ input{
         </tr>
         </thead>
         <tbody>
-        <tr th:each="employee : ${listEmployees}">
+        <tr th:each="employee : ${listEmployees}" th:field="${employee}">
             <td th:text="${employee.employeeName}"></td>
             <td th:text="${employee.employeeDesignation}"></td>
             <td th:text="${employee.emloyeeSalary}"></td>
             <td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-                <a class="btn btn-color1" th:href="@{/updateEmployee/{id}(id=${employee.id})}">Update</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;
+                &nbsp;
+                <a class="btn btn-color3" th:href="@{/updateEmployee/{id}(id=${employee.id})}">Update</a>
+                &nbsp;&nbsp;&nbsp;
+                &nbsp;
                 <a sec:authorize="hasAuthority('ADMIN')" onclick="return checkdelete()" class="btn btn-color2"
                    th:href="@{/deleteEmployee/{id}(id=${employee.id})}">Delete</a>
             </td>
@@ -234,7 +250,7 @@ input{
         <a class="a-link btn btn-color4" th:if="${currentPage < totalPages}"
            th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
         <span th:unless="${currentPage < totalPages}">Next</span>
-
+        &nbsp;
         <a class="a-link btn btn-color4" th:if="${currentPage < totalPages}"
            th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
         <span th:unless="${currentPage < totalPages}">Last</span>
@@ -253,10 +269,6 @@ input{
 	    function clearSearch() {
         window.location = "[[@{/}]]";
             }
-
-
-
-
 
 </script>
 </body>

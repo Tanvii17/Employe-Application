@@ -19,6 +19,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private Employee employee;
 
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+
+    @Override
+    public List<Employee> getByKeyword(String keyword) {
+        return employeeRepository.findByKeyword(keyword);
+    }
+
+
+
+
     @Override
     public List<Employee> getAllEmployees() {
         List<Employee> list = employeeRepository.findAll();
@@ -57,6 +70,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return this.employeeRepository.findAll(pageable);
     }
+
+
 
 
 }

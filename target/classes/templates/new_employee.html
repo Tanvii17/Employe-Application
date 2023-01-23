@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Employee Management System</title>
-<!--<link rel="stylesheet" href="./style.css">-->
+    <meta charset="ISO-8859-1">
+    <title>Employee Management System</title>
+    <!--<link rel="stylesheet" href="./style.css">-->
 
-<style media="screen">
+    <style media="screen">
 
      *,
 *:before,
@@ -95,31 +95,34 @@ button{
 
 
 
-</style>
-<!--<link rel="stylesheet" href="style.css" type="text/css">-->
+
+
+    </style>
+    <!--<link rel="stylesheet" href="style.css" type="text/css">-->
 </head>
 <body>
 
 <div>
 
 
-	<form action="#" th:action="@{/employee}" th:object="${employee}" method="POST">
-		<h3>Employee Application</h3>
-		<hr>
-		<label>Employee Name</label>
-		<input type="text" th:field="*{employeeName}" placeholder="Employee Name" class="form-control mb-4 col-4" required>
+    <form action="#" method="POST" th:action="@{/employee}" th:object="${employee}">
+        <h3>Employee Application</h3>
+        <hr>
+        <label>Employee Name</label>
+        <input class="form-control mb-4 col-4" placeholder="Employee Name" required th:field="*{employeeName}"
+               type="text">
 
-		<label>Employee Designation</label>
-		<input type="text" th:field="*{employeeDesignation}" placeholder="Employee Designation" class="form-control mb-4 col-4" required>
+        <label>Employee Designation</label>
+        <input class="form-control mb-4 col-4" placeholder="Employee Designation" required
+               th:field="*{employeeDesignation}" type="text">
 
-		<label>Employee Salary</label>
-		<input type="number" th:field="*{emloyeeSalary}" placeholder="Employee salary" class="form-control mb-4 col-4" required>
+        <label>Employee Salary</label>
+        <input class="form-control mb-4 col-4" placeholder="Employee salary" required th:field="*{emloyeeSalary}"
+               type="number">
 
-		<button type="submit" > Save Employee</button>
-		<a th:href = "@{/}"> Back to Employee List</a>
-	</form>
-
-
+        <button type="submit"> Save Employee</button>
+        <a th:href="@{/}"> Back to Employee List</a>
+    </form>
 
 
 </div>
