@@ -116,7 +116,7 @@ button{
         <label>Employee Salary</label>
         <input class="form-control mb-4 col-4" th:field="*{emloyeeSalary}" type="number">
 
-        <button type="submit"> Update Employee</button>
+        <button onclick="detailsUpdated()" type="submit"> Update Employee</button>
         <a th:href="@{/}"> Back to Employee List</a>
     </form>
 
@@ -124,6 +124,12 @@ button{
 
 
 </div>
+
+<script>
+function detailsUpdated() {
+  alert("Employee details updated successfully");
+}
+</script>
 
 
 </body>

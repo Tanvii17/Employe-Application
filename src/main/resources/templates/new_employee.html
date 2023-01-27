@@ -120,11 +120,18 @@ button{
         <input class="form-control mb-4 col-4" placeholder="Employee salary" required th:field="*{emloyeeSalary}"
                type="number">
 
-        <button type="submit"> Save Employee</button>
+        <button onclick="detailsSaved()" type="submit"> Save Employee</button>
         <a th:href="@{/}"> Back to Employee List</a>
     </form>
 
 
 </div>
+
+<script>
+function detailsSaved() {
+  alert("Employee details added successfully");
+}
+</script>
+
 </body>
 </html>

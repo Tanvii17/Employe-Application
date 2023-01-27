@@ -144,12 +144,12 @@ button{
 
 <div>
 
-      <div class="a-link" th:if="${param.error}">
+      <div style="color: red;" class="a-link" th:if="${param.error}">
       Invalid username or password.
       </div>
 
       <!-- logout message -->
-      <div class="a-link" th:if="${param.logout}">
+      <div style="color: green;" class="a-link" th:if="${param.logout}">
         <div>You have been logged out.</div>
       </div>
 </div>
@@ -168,7 +168,7 @@ button{
 
         <button type="submit" >Log In</button>
 
-          <span>New user? <a class="a-link" href="/" th:href="@{/registration}">Register here</a></span>
+          <span style="font-size: medium">New user? <a class="a-link" href="/" th:href="@{/registration}">Register here</a></span>
 
       </form>
       <div>

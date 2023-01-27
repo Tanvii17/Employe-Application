@@ -147,8 +147,7 @@ button{
 <div>
 
     <div class="a-link" th:if="${param.success}">
-        <div>You've successfully registered to application!
-        </div>
+        <div style="color: green;">You've successfully registered to application!</div>
     </div>
 
 </div>
@@ -177,7 +176,7 @@ button{
 
     <button type="submit">Register</button>
 
-    <span>Already registered? <a class="a-link" href="/" th:href="@{/login}">Login here</a></span>
+    <span style="font-size: medium">Already registered? <a class="a-link" href="/" th:href="@{/login}">Login here</a></span>
 </form>
 
 
